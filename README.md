@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Norbertoooo/reactive-pokedex-api.svg?branch=master)](https://travis-ci.org/Norbertoooo/reactive-pokedex-api)
 # Reactive Pokedex Api
 Api pokedex utilizando spring web flux com java 8 e mongoDB
 
