@@ -34,7 +34,13 @@ public class PokemonServiceImpl implements PokemonService {
 
     @Override
     public Mono<Pokemon> updatePokemon(String id, Pokemon pokemon) {
-        return null;
+        return getPokemon(id).flatMap(novoPokemon -> {
+            novoPokemon.setPeso(pokemon.getPeso());
+            novoPokemon.setHabilidades(pokemon.getHabilidades());
+            novoPokemon.setCategoria(pokemon.getCategoria());
+            novoPokemon.setNome(pokemon.getNome());
+            return savePokemon(novoPokemon);
+        });
     }
 
     @Override

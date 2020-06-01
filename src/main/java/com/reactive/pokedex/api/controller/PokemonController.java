@@ -40,23 +40,17 @@ public class PokemonController {
         return pokemonService.savePokemon(pokemon);
     }
 
-    @PutMapping("{id}")
-    public Mono<ResponseEntity<Pokemon>> updatePokemon(@PathVariable(value = "id") String id,
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Mono<ResponseEntity<Pokemon>> updatePokemon(@PathVariable String id,
                                                        @RequestBody Pokemon pokemon) {
-        return pokemonService.getPokemon(id)
-                .flatMap(existingPokemon -> {
-                    existingPokemon.setNome(pokemon.getNome());
-                    existingPokemon.setCategoria(pokemon.getCategoria());
-                    existingPokemon.setHabilidades(pokemon.getHabilidades());
-                    existingPokemon.setPeso(pokemon.getPeso());
-                    return pokemonService.savePokemon(existingPokemon);
-                })
+        return pokemonService.updatePokemon(id, pokemon)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("{id}")
-    public Mono<ResponseEntity<Void>> deletePokemon(@PathVariable(value = "id") String id) {
+    @DeleteMapping("/{id}")
+    public Mono<ResponseEntity<Void>> deletePokemon(@PathVariable String id) {
         return pokemonService.getPokemon(id)
                 .flatMap(existingPokemon ->
                         pokemonService.deletePokemon(existingPokemon)
